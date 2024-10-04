@@ -3,11 +3,18 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderWebsiteComponent } from '../../components/header-website/header-website.component';
 
 @Component({
   selector: 'app-layout-home',
   standalone: true,
-  imports: [FooterComponent,HeaderComponent,RouterOutlet, RouterLink],
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    RouterOutlet,
+    RouterLink,
+    HeaderWebsiteComponent,
+  ],
   templateUrl: './layout-home.component.html',
   styles: ``,
 })
