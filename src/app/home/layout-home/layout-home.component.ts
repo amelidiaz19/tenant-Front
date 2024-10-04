@@ -9,14 +9,12 @@ import { HeaderComponent } from '../../components/header/header.component';
   standalone: true,
   imports: [FooterComponent,HeaderComponent,RouterOutlet, RouterLink],
   templateUrl: './layout-home.component.html',
-  styles: ``
+  styles: ``,
 })
 export class LayoutHomeComponent implements OnInit {
-
   constructor() {}
 
   ngOnInit() {
     initFlowbite();
   }
-
 }

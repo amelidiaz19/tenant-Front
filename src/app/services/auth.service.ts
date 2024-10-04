@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../environments/environment";
-import { BehaviorSubject, map, Observable, of, tap } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,6 @@ export class AuthService {
       })
     );
   }
-  
   create(registerRequest: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/register`, registerRequest);
   }
@@ -83,11 +82,9 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('authToken');
   }
-
   getRol(): string | null {
     return localStorage.getItem('rol');
   }
-
   getUsuario(): any | null {
     const user = localStorage.getItem('User');
     return user ? JSON.parse(user) : null;
