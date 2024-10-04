@@ -1,0 +1,15 @@
+
+<div class="mb-6">
+    <label [for]="Name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{Name}}</label>
+    <div class="flex items-center space-x-3">
+        <input type="text" [id]="Name" [name]="Name" (input)="search($event)"  placeholder="Buscar por cliente..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500" required />
+        <select [id]="Name+'Select'" [name]="Name+'Select'" required [(ngModel)]="Selected" (ngModelChange)="onValueChange($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500">
+            <option value="" disabled selected>Elegir...</option>
+            @for (item of Filtro; track $index) {
+                <option [value]="item.id"> {{ item.nombre }}</option>
+              }
+        </select>
+        <button [routerLink]="RutaCreacion" type="button" class="inline-flex items-center rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-4  focus:ring-teal-300 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800"
+        >Nuevo</button>
+    </div>
+</div>
