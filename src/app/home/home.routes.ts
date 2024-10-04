@@ -35,13 +35,16 @@ const routes: Routes = [
             (m) => m.SignUpComponent
           ),
       },
-      /*
       {
-        path: 'contact',
+        path: 'pricing',
         loadComponent: () =>
-          import('./contact/contact.component').then((m) => m.ContactComponent),
+          import('./pricing/pricing.component').then((m) => m.PricingComponent),
       },
-      */
+      {
+        path: 'documentation',
+        loadComponent: () =>
+          import('./documentation/documentation.component').then((m) => m.DocumentationComponent),
+      },
     ],
   },
 ] as Routes;
