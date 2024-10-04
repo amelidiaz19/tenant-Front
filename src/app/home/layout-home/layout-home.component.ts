@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-layout-home',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './layout-home.component.html',
   styles: ``
 })
-export class LayoutHomeComponent {
+export class LayoutHomeComponent implements OnInit {
+
+  constructor() {}
+
+  ngOnInit() {
+    initFlowbite();
+  }
 
 }

@@ -15,12 +15,7 @@ const routes: Routes = [
         {
           path: 'about-us',
           loadComponent: () =>
-            import('./about-us/about-us.component').then(
-              (m) => m.AboutUsComponent
-            ),
-          data: {
-            title: 'Catálogo',
-          },
+            import('./about-us/about-us.component').then((m) => m.AboutUsComponent),
         },
         {
           path: 'auth',
@@ -30,9 +25,7 @@ const routes: Routes = [
         {
           path: 'contact',
           loadComponent: () =>
-            import('./contact/contact.component').then(
-              (m) => m.ContactComponent
-            ),
+            import('./contact/contact.component').then((m) => m.ContactComponent),
         },
       ],
     },
