@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { CartStateService } from '../../services/cart-state.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   styles: ``
 })
@@ -29,6 +29,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     initFlowbite();
+
     this.cartStateService.quantity$.subscribe((qty) => {
       this.quantity = qty;
     });

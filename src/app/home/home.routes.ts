@@ -23,9 +23,14 @@ const routes: Routes = [
             import('./auth/sign-in/sign-in.component').then((m) => m.SignInComponent),
         },
         {
-          path: 'contact',
+          path: 'pricing',
           loadComponent: () =>
-            import('./contact/contact.component').then((m) => m.ContactComponent),
+            import('./pricing/pricing.component').then((m) => m.PricingComponent),
+        },
+        {
+          path: 'documentation',
+          loadComponent: () =>
+            import('./documentation/documentation.component').then((m) => m.DocumentationComponent),
         },
       ],
     },

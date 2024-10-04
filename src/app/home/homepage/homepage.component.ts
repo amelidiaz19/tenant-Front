@@ -1,6 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { initFlowbite } from 'flowbite';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -9,14 +8,6 @@ import { initFlowbite } from 'flowbite';
   templateUrl: './homepage.component.html',
   styles: ``
 })
-export class HomepageComponent implements OnInit {
-
-  constructor() {}
-
-  router = inject(Router);
-
-  ngOnInit() {
-    
-  }
+export class HomepageComponent {
 
 }
