@@ -11,10 +11,7 @@ import { ProductoResponse } from "../models/producto";
 export class ProductoService {
     apiUrl: string = environment.API_URL + '/inventory/producto';
   
-    constructor(
-      private http: HttpClient,
-      private authService: AuthService,
-    ) {}
+    constructor(private http: HttpClient) {}
 
     headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
