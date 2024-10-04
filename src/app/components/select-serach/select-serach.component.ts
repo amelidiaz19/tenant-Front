@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [FormsModule, RouterLink],
   templateUrl: './select-serach.component.html',
-  styleUrl: './select-serach.component.css',
+  styles: ``,
 })
 export class SelectSerachComponent implements OnChanges {
   @Input() Name: string = '';

@@ -5,7 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css',
+  styles: ``,
 })
 export class ModalComponent {
   @Input() isOpen: boolean = false;

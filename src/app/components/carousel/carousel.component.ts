@@ -19,7 +19,7 @@ register();
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [CartCursoComponent, CommonModule],
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css',
+  styles: ``,
 })
 export class CarouselComponent implements OnInit {
   @Input() items: any[] = [];

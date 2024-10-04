@@ -17,7 +17,7 @@ import { SwiperOptions } from 'swiper/types';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [CommonModule],
   templateUrl: './carouse-img.component.html',
-  styleUrl: './carouse-img.component.css',
+  styles: ``,
 })
 export class CarouseImgComponent implements OnInit {
   @Input() imagenes: string[] = [];

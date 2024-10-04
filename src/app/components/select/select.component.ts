@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './select.component.html',
-  styleUrl: './select.component.css',
+  styles: ``,
 })
 export class SelectComponent {
   @Input() Name: string = '';

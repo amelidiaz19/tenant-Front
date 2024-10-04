@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './tables.component.html',
-  styleUrl: './tables.component.css',
+  styles: ``,
 })
 export class TablesComponent {
   @Input() data: any[] = [];

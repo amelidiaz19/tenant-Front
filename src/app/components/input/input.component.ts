@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './input.component.html',
-  styleUrl: './input.component.css',
+  styles: ``,
 })
 export class InputComponent {
   @Input() Data: any;
