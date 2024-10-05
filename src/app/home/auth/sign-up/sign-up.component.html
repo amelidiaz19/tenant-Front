@@ -1,5 +1,8 @@
 
-<div class="max-w-screen-xl mx-auto">
+<div class="w-[80vw] sm:max-w-screen-md mx-auto flex flex-col flex-nowrap items-center justify-center">
+  <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700  mb-10 ">
+    <div class="bg-purple-600 h-2.5 rounded-full transition-all duration-700" [ngStyle]="ProgressStyle"></div>
+  </div>
 
   @if (FlagLoading) {
     <div class="flex items-center justify-center w-56 h-56 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -9,6 +12,106 @@
       </div>
     </div>
   }
+  <section class="w-full max-h-screen relative overflow-hidden  transition-all" [ngStyle]="EstiloContenedorDatos">
+    <!-- Container that slides -->
+    <div class="flex h-full transition-transform duration-500" [ngStyle]="{ transform: 'translateX(-' + activeIndex * 100 + '%)' }">
+      
+      <!-- Div 1 -->
+      <div class="w-full flex-shrink-0 flex flex-col items-center justify-center gap-5 ">
+        <h2 class="font-bold text-2xl text-purple-900">Datos del Titular</h2>
+        <div class="flex flex-row flex-wrap gap-3">
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.email" (DataChange)="DatosCuenta.usuario.email = $event" [Name]="'Email'" [Type]="'email'"  [Placeholder]="'ejemplo@gmail.com'"/>
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.password" (DataChange)="DatosCuenta.usuario.password = $event" [Name]="'Password'" [Type]="'password'" [Placeholder]="'**********'"/>
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.nombre" (DataChange)="DatosCuenta.usuario.nombre = $event" [Name]="'Nombres'" />
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.apellido" (DataChange)="DatosCuenta.usuario.apellido = $event" [Name]="'Apellidos'" />
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.documento" (DataChange)="DatosCuenta.usuario.documento = $event" [Name]="'Dni'" />
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.direccion" (DataChange)="DatosCuenta.usuario.direccion = $event" [Name]="'Direccion'" />
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.usuario.telefono" (DataChange)="DatosCuenta.usuario.telefono = $event" [Name]="'Telefono'" />
+          </div>
+        </div>
+        <button (click)="MoveCarts(1,50)" class="w-[40%] py-2  text-2xl font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-500 dark:hover:bg-purple-600 dark:focus:ring-purple-900">Siguiente</button>
+        
+      </div>
   
+      <!-- Div 2 -->
+      <div class="w-full flex-shrink-0 flex flex-col items-center justify-start gap-5">
+        <h2 class="font-bold text-2xl text-purple-900">Datos del Servicio</h2>
+        <div class="flex flex-row flex-wrap gap-3">
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.tenant.nombre" (DataChange)="DatosCuenta.tenant.nombre = $event" [Name]="'Nombre-del-Negocio'" />
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.tenant.ruc" (DataChange)="DatosCuenta.tenant.ruc = $event" [Name]="'Ruc'" />
+          </div>
+          <div class="w-[48%]">
+            <app-input [Data]="DatosCuenta.tenant.clavesol" (DataChange)="DatosCuenta.tenant.clavesol = $event" [Type]="'password'" [Name]="'Clave-Sol'" />
+          </div>
+          <div class="w-[48%]">
+            <app-select [Data]="tiposdeNegocio" [Name]="'Tipo-Negocio'" (SelectedChange)="DatosCuenta.tenant.tiponegocio"/>
+          </div>
+          <!--
+          <div class="mb-6 ">
+            <label for="color_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione un Color</label>
+            <input id="color_r" name="color_r" class="rounded-xl w-20 h-10" type="color" [(ngModel)]="datos.tenant.paleta" />
+          </div>
+          -->
+          <div class="flex flex-row flex-nowrap gap-5 max-h-20 ">
+            <div class="mb-6 w-80">
+              <label for="archivo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese su Logo</label>
+              <input type="file" id="archivo" name="archivo" (change)="onFileChangePrincipal($event)" required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+            </div>
+            @if (Logo) {
+              <img class="rounded-md h-full object-contain" [src]="Logo" alt="logo">
+            }
+          </div>
+          
+        </div>
+        <div class="w-full flex flex-row gap-4 items-center justify-center">
+          <button type="button" (click)="MoveCarts(0,0)" class="w-[40%] py-2  text-2xl font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+            Regresar
+          </button>
+          <button type="button" (click)="MoveCarts(2,100)" class="w-[40%] py-2  text-2xl font-medium text-center text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-500 dark:hover:bg-purple-600 dark:focus:ring-purple-900">
+            Continuar
+          </button>
+        </div>
+        
+      </div>
+
+      <div class="w-full flex-shrink-0 flex flex-col items-center justify-start gap-5">
+        <h2 class="font-bold text-2xl text-purple-900">PAGO</h2>
+        <div class="flex gap-2">
+          <button type="button" (click)="ProcesoPagoTarjeta()" class="flex-1 py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+            PROCESAR PAGO
+          </button>
+        </div>
+        <!--
+        <div class="flex gap-2">
+          <button type="button" (click)="MoveCarts(1,50)" class="flex-1 py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+            Regresar
+          </button>
+        </div>
+        -->
+      </div>
+    </div>
+  </section>
+  <div class="container md:max-w-screen-sm text-center h-96" [ngStyle]="EstiloPasarella">
+    <h2 class="font-bold text-2xl text-purple-900">PAGO</h2>
+    <div id="myPaymentForm">
+      <div class="kr-smart-form" kr-popin></div>
+    </div>
+  </div>
 
 </div>

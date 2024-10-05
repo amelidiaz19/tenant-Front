@@ -38,6 +38,17 @@ export class AuthService {
       })
     );
   }
+  registerNewTenant(datos: any): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/register-new-tenant`, datos)
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('authToken', response.token);
+          localStorage.setItem('rol', response.rol);
+          localStorage.setItem('User', response.usuario);
+        })
+      );
+  }
   create(registerRequest: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/register`, registerRequest);
   }
