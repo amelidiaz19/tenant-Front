@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './card-promotional.component.html',
-  styleUrl: './card-promotional.component.css',
+  styles: ``,
 })
 export class CardPromotionalComponent {
   @Input() Tipo: string = 'Estandar';
