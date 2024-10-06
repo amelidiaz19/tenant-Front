@@ -9,5 +9,5 @@ import { RouterLink } from '@angular/router';
   styles: ``,
 })
 export class CardPromotionalComponent {
-  @Input() Tipo: string = 'standar';
+  @Input() Tipo: string = 'Standar';
 }
