@@ -59,8 +59,14 @@
           <div class="w-[48%]">
             <app-input [Data]="DatosCuenta.tenant.clavesol" (DataChange)="DatosCuenta.tenant.clavesol = $event" [Type]="'password'" [Name]="'Clave-Sol'" />
           </div>
-          <div class="w-[48%]">
-            <app-select [Data]="tiposdeNegocio" [Name]="'Tipo-Negocio'" (SelectedChange)="DatosCuenta.tenant.tiponegocio"/>
+          <div class="mb-6">
+            <label for="tiponegocio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de Negocio</label>
+            <select id="tiponegocio" name="tiponegocio" [(ngModel)]="DatosCuenta.tenant.tiponegocio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500">
+                <option value="" disabled selected>Elegir...</option>
+                @for (item of tiposdeNegocio; track $index) {
+                  <option class="text-gray-900" [value]="item.nombre"> {{ item.nombre }}</option>
+                }
+            </select>  
           </div>
           <!--
           <div class="mb-6 ">

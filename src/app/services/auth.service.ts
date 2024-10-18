@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,7 @@ export class AuthService {
 
   public usuarioSubject = new BehaviorSubject<any | null>(null);
   public usuario$ = this.usuarioSubject.asObservable();
+  public tenantId$ = this.usuario$.pipe(map((user) => user?.tenantId || null));
 
   constructor(private http: HttpClient) {
     this.cargarUsuario();
@@ -19,13 +20,20 @@ export class AuthService {
   cargarUsuario() {
     const token = this.getToken();
     if (token) {
-      this.isLoggedIn().subscribe((res) => {
-        if (res.estado) {
-          this.usuarioSubject.next(res.user);
-        } else {
+      this.isLoggedIn().subscribe(
+        (res) => {
+          console.log(res);
+          if (res.estado) {
+            this.usuarioSubject.next(res.user);
+          } else {
+            this.logout();
+          }
+        },
+        (error) => {
+          console.error('Error al cargar el usuario', error);
           this.logout();
         }
-      });
+      );
     }
   }
 
@@ -34,7 +42,8 @@ export class AuthService {
       tap((response) => {
         localStorage.setItem('authToken', response.token);
         localStorage.setItem('rol', response.rol);
-        localStorage.setItem('User', response.usuario);
+        localStorage.setItem('User', JSON.stringify(response.usuario));
+        this.usuarioSubject.next(response.user);
       })
     );
   }
@@ -45,7 +54,8 @@ export class AuthService {
         tap((response) => {
           localStorage.setItem('authToken', response.token);
           localStorage.setItem('rol', response.rol);
-          localStorage.setItem('User', response.usuario);
+          localStorage.setItem('User', JSON.stringify(response.usuario));
+          this.usuarioSubject.next(response.user);
         })
       );
   }

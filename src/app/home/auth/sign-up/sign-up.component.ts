@@ -69,12 +69,13 @@ export class SignUpComponent implements OnInit {
     tenant: {
       id: '',
       nombre: '',
-      tiponegocio: '',
+      tiponegocio: 'electronica',
       ruc: '',
       clavesol: '',
       paleta: '',
     },
     hash: {},
+    clientAnswer: {},
   };
   DatosPago = {
     amount: 0,
@@ -115,53 +116,50 @@ export class SignUpComponent implements OnInit {
     this.ProcederAPago();
     try {
       // Obtener los datos de pago desde el servicio
-      const data = await this.paymentService
-        .postExternalData(this.DatosPago)
-        .toPromise();
-
-      // Cargar la librería de KRGlue y obtener el objeto KR
-      const { KR } = await KRGlue.loadLibrary(endpoint, publicKey);
-
-      // Configurar el formulario de pago con el token obtenido
-      await KR.setFormConfig({
-        formToken: data.formToken,
-        'kr-language': 'es-ES',
+      this.paymentService.postExternalData(this.DatosPago).subscribe((data) => {
+        KRGlue.loadLibrary(endpoint, publicKey) // Load the remote library
+          .then(({ KR }) =>
+            KR.setFormConfig({
+              //set the minimal configuration
+              formToken: data.formToken,
+              'kr-language': 'es-ES',
+              //to update initialization parameter
+            })
+          )
+          .then(({ KR }) =>
+            KR.onSubmit(async (paymentData) => {
+              this.paymentService.validatePayment(paymentData).subscribe(
+                (response) => {
+                  if (response.Status) {
+                    this.DatosCuenta.hash = paymentData.hash;
+                    this.DatosCuenta.clientAnswer = paymentData.clientAnswer;
+                    this.CreacionTenant();
+                  } else {
+                    //this.message = 'no pagado';
+                  }
+                  this.chRef.detectChanges();
+                },
+                (_error) => {
+                  //this.message = 'PIPIPI';
+                }
+              );
+              return true;
+            })
+          )
+          .then(({ KR }) => KR.renderElements('#myPaymentForm'));
       });
-
-      // Definir el comportamiento de la validación del pago
-      KR.onSubmit(async (paymentData) => {
-        try {
-          const response = await this.paymentService
-            .validatePayment(paymentData)
-            .toPromise();
-
-          if (response.Status) {
-            // Lógica si el pago fue exitoso
-            //this.DatosCuenta.hash = paymentData.hash;
-            //this.CreacionTenant();
-          } else {
-            // Lógica si el pago no fue exitoso
-            // this.message = 'no pagado';
-          }
-        } catch (_error) {
-          // Manejo de error en la validación del pago
-          // this.message = 'PIPIPI';
-        } finally {
-          this.chRef.detectChanges();
-        }
-
-        return true;
-      });
-
-      // Renderizar el formulario en el contenedor especificado
-      KR.renderElements('#myPaymentForm');
     } catch (error) {
       console.error('Error en el proceso de pago: ', error);
       // Manejo de errores
     }
   }
   CreacionTenant() {
-    this.authService.registerNewTenant(this.DatosCuenta);
+    this.authService.registerNewTenant(this.DatosCuenta).subscribe((res) => {
+      if (res.status) {
+        this.router.navigate(['/dashboard']);
+      }
+      console.log(res);
+    });
   }
   PreparaDatos() {
     this.DatosPago.customer.billingDetails.firstName =

@@ -1,57 +1,66 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AuthService } from "./auth.service";
-import { Observable } from "rxjs";
-import { ProductoResponse } from "../models/producto";
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
+import { ProductoResponse } from '../models/producto';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class ProductoService {
-    apiUrl: string = environment.API_URL + '/inventory/producto';
-  
-    constructor(private http: HttpClient) {}
-
-    headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+  apiUrl: string = environment.API_URL + '/inventory/producto';
+  tenantId: string | null = null;
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.authService.usuario$.subscribe((usuario) => {
+      this.tenantId = usuario.tenantId; // Guardar el tenantId en una propiedad
+      console.log('Tenant ID:', this.tenantId);
     });
+  }
 
-    getListaProductos(): Observable<any[]> {
-      return this.http.get<any[]>(this.apiUrl, {
-        headers: this.headers,
-      });
-    }
+  getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      tenantId: this.tenantId || '', // Utilizar el valor del tenantId capturado
+    });
+  }
+  getListaProductos(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl, {
+      headers: this.getHeaders(),
+    });
+  }
 
-    getListaProductosFact(): Observable<any> {
-      return this.http.get<any>(`${this.apiUrl}/fact`, { headers: this.headers });
-    }
+  getListaProductosFact(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/fact`, {
+      headers: this.getHeaders(),
+    });
+  }
 
-    postNuevoProducto(productoNuevo: FormData): Observable<any> {
-      return this.http.post<any>(`${this.apiUrl}`, productoNuevo, {
-        headers: this.headers,
-      });
-    }
+  postNuevoProducto(productoNuevo: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, productoNuevo, {
+      headers: this.getHeaders(),
+    });
+  }
 
-    putProducto(productoNuevo: FormData): Observable<any> {
-      return this.http.put<any>(`${this.apiUrl}`, productoNuevo, {
-        headers: this.headers,
-      });
-    }
-    
-    getProductoById(id: string): Observable<ProductoResponse> {
-      return this.http.get<ProductoResponse>(`${this.apiUrl}/${id}`);
-    }
-  
-    deleteProducto(id: string): Observable<void> {
-      return this.http.delete<void>(`${this.apiUrl}/${id}`, {
-        headers: this.headers,
-      });
-    }
-  
-    getListadoCategoriaProducto(limit: number): Observable<any> {
-      return this.http.get<any>(
-        `${this.apiUrl}/CategoriaProducto?limit=${limit}`,
-      );
-    }
+  putProducto(productoNuevo: FormData): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}`, productoNuevo, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getProductoById(id: string): Observable<ProductoResponse> {
+    return this.http.get<ProductoResponse>(`${this.apiUrl}/${id}`);
+  }
+
+  deleteProducto(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getListadoCategoriaProducto(limit: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/CategoriaProducto?limit=${limit}`
+    );
+  }
 }

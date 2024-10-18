@@ -49,8 +49,8 @@
         <h1 class="h3 mb-3 fw-normal">Empresa Fryzán</h1>
     
 
-        <app-input [Data]="usuario.email" [Name]="'Email'" [Placeholder]="'ejemplo@gmail.com'"></app-input>
-        <app-input [Data]="usuario.password" [Name]="'Password'" [Placeholder]="'************'"></app-input>
+        <app-input [Data]="usuario.email" (DataChange)="usuario.email = $event" [Name]="'Email'" [Placeholder]="'ejemplo@gmail.com'" ></app-input>
+        <app-input [Data]="usuario.password" (DataChange)="usuario.password = $event" [Name]="'Password'" [Type]="'password'" [Placeholder]="'************'"></app-input>
     
         <div class="flex items-center mb-4">
           <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
