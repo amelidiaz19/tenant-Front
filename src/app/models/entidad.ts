@@ -1,11 +1,15 @@
+import { RolResponse } from "./rol";
+
 export interface Entidad {
     id:string;
     nombre: string;
+    apellido: string;
     documento: string;
     direccion: string;
     telefono: string;
     email: string;
     tipoEntidad: TipoEntidad;
+    rol: RolResponse | null;
 }
 
 export interface TipoEntidad{
