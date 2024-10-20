@@ -110,8 +110,11 @@ export class SignUpComponent implements OnInit {
     const endpoint = 'https://api.micuentaweb.pe';
     //const publicKey =
     //  '80203493:publickey_1nPGb868QNn3uq7hs8Q71A2wT0y5WEk9zhm3eKdVczupQ';
+    //const publicKey = '87365204:testpublickey_TjJxMZ9Mzbgk7ga0Zd5Hh59l3AUoNbnN1zwHNUnct4QsU';
+
+    //technet
     const publicKey =
-      '87365204:testpublickey_TjJxMZ9Mzbgk7ga0Zd5Hh59l3AUoNbnN1zwHNUnct4QsU';
+      '80203493:testpublickey_2h74LTfgBCifM8NOXKuDkUqYUHMbb7jUegkAJqSUYYLgl';
     this.PreparaDatos();
     this.ProcederAPago();
     try {
