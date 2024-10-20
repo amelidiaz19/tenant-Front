@@ -15,6 +15,7 @@ import { PedidoService } from '../../services/pedido.service';
 import { initFlowbite } from 'flowbite';
 import { FormsModule } from '@angular/forms';
 import { CategoriaService } from '../../services/categoria.service';
+import { ProductoSerieService } from '../../services/producto-serie.service';
 
 @Component({
   selector: 'app-product',
@@ -54,6 +55,8 @@ export class ProductComponent {
 
   EditOpen = false;
   CreateOpen = false;
+  SerieOpen = false;
+
   name_modal = 'CREAR';
   openEModal() {
     this.name_modal = 'EDITAR';
@@ -64,6 +67,12 @@ export class ProductComponent {
     //this.CreateOpen = true;
     this.name_modal = 'CREAR';
     this.EditOpen = true;
+  }
+
+  openSModal() {
+    //this.CreateOpen = true;
+    this.name_modal = 'SERIES';
+    this.SerieOpen = true;
   }
 
   ngOnInit() {
@@ -86,6 +95,7 @@ export class ProductComponent {
       });
     }
   }
+
   ListaCategoriaMarcaSeleccionada: any;
   ListasSubcategoriaSeleccionada: any;
   buscarSubM(marcaId: number) {
@@ -93,12 +103,14 @@ export class ProductComponent {
       (m) => m.id == marcaId
     )?.CategoriaMarcas;
   }
+
   buscarSubC(categoria: number) {
     this.ListasSubcategoriaSeleccionada = this.categorias.find(
       (c) => c.id == categoria
     )?.subcategorias;
     console.log(categoria);
   }
+
   cargarProductosActualizado() {
     this.productoService.getListaProductos().subscribe(
       (response) => {
@@ -314,4 +326,30 @@ export class ProductComponent {
   getCurrentDateTime(): string {
     return new Date().toISOString();
   }
+
+  // Series del producto
+  productoSerieService = inject(ProductoSerieService);
+  seriesProducto: any[] = [];
+  nombreProductoSerie: string = '';
+
+  verSeries(idProducto: string) {
+    this.nombreProductoSerie = this.obtenerNombreProducto(idProducto); // Implementa este método
+    console.log(idProducto);
+    this.openSModal();
+    this.productoSerieService.getSeriesByProductoId(idProducto).subscribe({
+     next: (series) => {
+       this.seriesProducto = series; // Almacenar las series obtenidas
+       console.log('Series del producto:', this.seriesProducto);
+     },
+     error: (err) => {
+       console.error('Error al obtener las series del producto:', err);
+     },
+   });
+ }
+
+  obtenerNombreProducto(id: string): string {
+    const producto = this.productos.find(p => p.id === id);
+    return producto ? producto.nombre : 'Producto no encontrado';
+  }
+
 }

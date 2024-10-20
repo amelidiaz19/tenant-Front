@@ -1,66 +1,44 @@
-<div class="w-full h-full flex items-center justify-center">
-    <div class="flex flex-col flex-nowrap items-center">
-      <app-modal [isOpen]="FlagModal" [title]="'Crear Cuenta'" (close)="toggleModal()">
-        <form (ngSubmit)="register()">
-          <div class="mb-6">
-            <label for="username_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-            <input type="text" id="username_r" name="username_r" placeholder="Ingrese nombre del usuario..." [(ngModel)]="usuario.email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+      <img class="w-8 h-8 mr-2" src="https://cdn-icons-png.flaticon.com/512/1170/1170584.png" alt="logo">
+      Empresa PR-Fact   
+    </a>
+    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          Iniciar sesión
+        </h1>
+        <form class="space-y-4 md:space-y-6" (ngSubmit)="login()">
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
+            <input type="email" name="email" id="email" [(ngModel)]="usuario.email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="nombre@compania.com" required="">
           </div>
-  
-          <div class="mb-6">
-            <label for="password_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-            <input type="password" id="password_r" name="password_r" placeholder="Ingrese contraseña del usuario..." [(ngModel)]="usuario.password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+            <input type="password" name="password" id="password" [(ngModel)]="usuario.password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
           </div>
-          
-          <div class="mb-6">
-            <label for="nombre_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-            <input type="text" id="nombre_r" name="nombre_r" placeholder="Ingrese contraseña del usuario..." [(ngModel)]="usuario.nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
+          <div class="flex items-center justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="remember" class="text-gray-500 dark:text-gray-300">Recordar contraseña</label>
+              </div>
+            </div>
+            <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">¿Olvidó su contraseña?</a>
           </div>
-          <div class="mb-6">
-            <label for="apellido_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
-            <input type="text" id="apellido_r" name="apellido_r" placeholder="Ingrese contraseña del usuario..." [(ngModel)]="usuario.apellido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
-          </div>
-          <div class="mb-6">
-            <label for="documento_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Documento</label>
-            <input type="text" id="documento_r" name="documento_r" placeholder="Ingrese el Documento..." [(ngModel)]="usuario.documento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
-          </div>
-          <div class="mb-6">
-            <label for="direccion_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Direccion</label>
-            <input type="text" id="direccion_r" name="direccion_r" placeholder="Ingrese direccion del usuario..." [(ngModel)]="usuario.direccion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
-          </div>
-          <div class="mb-6">
-            <label for="telefono_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono/Celular</label>
-            <input type="text" id="telefono_r" name="telefono_r" placeholder="Ingrese telefono/celular del usuario..." [(ngModel)]="usuario.telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
-          </div>
-          <div class="mb-6">
-            <label for="subscripcion_r" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Subscripcion</label>
-            <input type="text" id="subscripcion_r" name="subscripcion_r" placeholder="Ingrese codigo de subscripcion" [(ngModel)]="usuario.tenantId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" />
-          </div>
-          <button
-          class="w-full items-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4  focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
-          type="submit">Crear</button>
-  
+          <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Iniciar sesión</button>
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            ¿Aún no tiene una cuenta? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500" (click)="toggleModal()">Regístrese aquí</a>
+          </p>
         </form>
-      </app-modal>
-      <form class="w-80">
-        <div class="w-28 h-28 mx-auto mb-10 bg-slate-300 rounded-full shadow-2xl">
-          <img class="w-full h-full object-contain shadow-sm rounded-full" src="https://www.asesora2.cl/servicios/76-home_default/sistema-boleta-y-factura-electronica-anual.jpg" alt="usuario">
-        </div>
-        <h1 class="h3 mb-3 fw-normal">Empresa Fryzán</h1>
-    
-
-        <app-input [Data]="usuario.email" (DataChange)="usuario.email = $event" [Name]="'Email'" [Placeholder]="'ejemplo@gmail.com'" ></app-input>
-        <app-input [Data]="usuario.password" (DataChange)="usuario.password = $event" [Name]="'Password'" [Type]="'password'" [Placeholder]="'************'"></app-input>
-    
-        <div class="flex items-center mb-4">
-          <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="default-checkbox" class="ms-2 text-sm font-light text-gray-900 dark:text-gray-300">Recordar contrasena</label>
       </div>
-      </form>
-      <div class="flex flex-row flex-nowrap gap-4">
-        <button type="button" class="py-2 px-4 bg-indigo-800 hover:bg-indigo-700 transition-all hover:scale-105 text-white rounded-lg" (click)="login()">Iniciar Sesión</button>
-        <button type="button" class="py-2 px-4 bg-indigo-800 hover:bg-indigo-700 transition-all hover:scale-105 text-white rounded-lg" (click)="toggleModal()">Registrarse</button>
-      </div>
-
     </div>
-</div>
+  </div>
+</section>
+
+<app-modal [isOpen]="FlagModal" [title]="'Crear Cuenta'" (close)="toggleModal()">
+  <!-- Aquí va el contenido del modal de registro -->
+</app-modal>
