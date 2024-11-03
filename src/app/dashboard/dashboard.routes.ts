@@ -85,6 +85,13 @@ const routes: Routes = [
             (m) => m.ListQuotationComponent
           ),
       },
+      {
+        path: 'product/:id',
+        loadComponent: () => 
+          import('./product-serie/product-serie.component').then(
+            (m) => m.ProductSerieComponent
+          )
+      }
     ],
   },
 ] as Routes;
