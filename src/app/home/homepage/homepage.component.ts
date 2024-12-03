@@ -16,4 +16,7 @@ export class HomepageComponent implements OnInit {
   router = inject(Router);
 
   ngOnInit() {}
+  Redirect() {
+    //window.location.href = 'http://aybprueba.com';
+  }
 }

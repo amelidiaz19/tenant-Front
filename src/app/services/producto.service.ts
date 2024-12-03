@@ -9,11 +9,12 @@ import { ProductoResponse } from '../models/producto';
   providedIn: 'root',
 })
 export class ProductoService {
-  apiUrl: string = environment.API_URL + '/inventory/producto';
+  apiUrl: string = environment.API_URL + '/inventario/producto';
   tenantId: string | null = null;
+
   constructor(private http: HttpClient, private authService: AuthService) {
     this.authService.usuario$.subscribe((usuario) => {
-      this.tenantId = usuario.tenantId; // Guardar el tenantId en una propiedad
+      this.tenantId = usuario.TenantId; // Guardar el tenantId en una propiedad
       console.log('Tenant ID:', this.tenantId);
     });
   }
@@ -21,7 +22,7 @@ export class ProductoService {
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-      tenantId: this.tenantId || '', // Utilizar el valor del tenantId capturado
+      tenantid: this.tenantId || '', // Utilizar el valor del tenantId capturado
     });
   }
   getListaProductos(): Observable<any[]> {

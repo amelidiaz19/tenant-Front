@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import KRGlue from '@lyracom/embedded-form-glue';
 import { PaymentService } from '../../../services/payment.service';
 import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -73,6 +74,8 @@ export class SignUpComponent implements OnInit {
       ruc: '',
       clavesol: '',
       paleta: '',
+      dominio: 'fryzan.com',
+      dominiofront: 'web1',
     },
     hash: {},
     clientAnswer: {},
@@ -157,11 +160,36 @@ export class SignUpComponent implements OnInit {
     }
   }
   CreacionTenant() {
-    this.authService.registerNewTenant(this.DatosCuenta).subscribe((res) => {
+    const formData = new FormData();
+    formData.append('datos', JSON.stringify(this.DatosCuenta));
+    if (this.selectedFileLogo) {
+      formData.append('file', this.selectedFileLogo);
+    } else {
+      Swal.fire('Error', 'Seleccione al menos una imagen de logo', 'error');
+      return;
+    }
+    // this.authService.registerNewTenant(this.DatosCuenta).subscribe((res) => {
+    //   if (res.status) {
+    //     console.log('creacion correcta');
+    //     console.log(
+    //       'la ruta es: ',
+    //       `http://${this.DatosCuenta.tenant.dominio}`
+    //     );
+    //     window.location.href = `http://${this.DatosCuenta.tenant.dominio}`;
+    //     //this.router.navigate(['/dashboard']);
+    //   }
+    // });
+
+    this.authService.registerNewTenantFormData(formData).subscribe((res) => {
       if (res.status) {
-        this.router.navigate(['/dashboard']);
+        console.log('creacion correcta');
+        console.log(
+          'la ruta es: ',
+          `http://${this.DatosCuenta.tenant.dominio}`
+        );
+        window.location.href = `http://${this.DatosCuenta.tenant.dominio}`;
+        //this.router.navigate(['/dashboard']);
       }
-      console.log(res);
     });
   }
   PreparaDatos() {
